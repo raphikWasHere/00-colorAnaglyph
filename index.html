@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function cargarImagen( urlImg ) {
+
+        //genera una imagen a partir de la url 
+        var myImg = new Image();
+        myImg.src = urlImg;
+
+        //calcula la anchura y la altura del anaglifo
+        document.getElementById("anaglyph").width = myImg.naturalWidth/2;
+        document.getElementById("anaglyph").height = myImg.naturalHeight;
+
+        //genera la imagen "rite" aplicando a la imagen original un filtro cian
+        document.getElementById("rite").style.backgroundColor = "cyan";
+        document.getElementById("rite").style.backgroundImage = "url("+urlImg+")";
+        document.getElementById("rite").style.backgroundBlendMode = "lighten";
+        //visualiza la mitad izquierda de la imagen cian
+        document.getElementById("left").style.backgroundPosition = "0px 0px";
+
+        //genera la imagen "left" aplicando a la imagen original un filtro rojo
+        document.getElementById("left").style.backgroundColor = "red";
+        document.getElementById("left").style.backgroundImage = "url("+urlImg+")";
+        document.getElementById("left").style.backgroundBlendMode = "lighten";
+        //visualiza la mitad derecha de la imagen roja
+        document.getElementById("left").style.backgroundPosition = myImg.naturalWidth/2+"px 0px";
+
+        //la imagen "left" se mezcla con la anterior ("rite")
+        document.getElementById("left").style.mixBlendMode = "darken";
+      }
+    </script>
+  </head>
+  <body onload="cargarImagen('https://live.staticflickr.com/5005/5305804701_c0f6e1b372_k.jpg')">
+    <p>Anaglifo Rojo/Cian en color, generado a partir de un par estereoscópico FSBS (Full Side-By-Side).
+    <br/>(Si no se visualiza la imagen, pulsa F5).
+    <p>
+    <object id="anaglyph" style="position: relative; display: inline-block; overflow: hidden;">
+      <img id="rite" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: none;">
+      <img id="left" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: none;">
+    </object>
+    <br/>
+    <span style="font-size:70%;">
+      Original image url: https://live.staticflickr.com/5005/5305804701_c0f6e1b372_k.jpg
+    </span>
+   </body>
+</html>
+
